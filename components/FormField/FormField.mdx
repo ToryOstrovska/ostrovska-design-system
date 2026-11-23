@@ -10,7 +10,7 @@ import * as FormFieldStories from "./FormField.stories";
 
 ## Параметри
 
-- `label` — текст підпису над полем. Обовʼязковий.
+- `label` — текст підпису над полем (`text-small font-medium`). Обовʼязковий.
 - `id` — `id` поля. Якщо не передано, створюється автоматично.
 - `type` — тип поля (`text`, `email`, `tel` тощо). За замовчуванням `text`.
 - `value` / `defaultValue` — значення поля. Порожнє — стан default, з текстом — заповнене.
@@ -38,7 +38,7 @@ import * as FormFieldStories from "./FormField.stories";
 ## Токени
 
 - Кольори: `surface`, `canvas`, `ink`, `ink-muted`, `accent`, `danger`.
-- Текст: `text-body` (поле), `text-small` (підпис і помилка), шрифт `font-sans`.
+- Текст: `text-body` (поле), `text-small font-medium` (підпис), `text-small` (помилка), шрифт `font-sans`.
 - Радіус: `rounded-field`.
 - Відступи: кроки 2, 3, 4 (між підписом, полем і помилкою — 2; усередині поля — 4 × 3).
 

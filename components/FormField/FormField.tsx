@@ -72,7 +72,7 @@ export function FormField({
 
   return (
     <div className={["flex flex-col gap-2", className].filter(Boolean).join(" ")}>
-      <label htmlFor={inputId} className={["text-small", disabled ? "text-ink-muted" : "text-ink"].join(" ")}>
+      <label htmlFor={inputId} className={["text-small font-medium", disabled ? "text-ink-muted" : "text-ink"].join(" ")}>
         {label}
       </label>
 
