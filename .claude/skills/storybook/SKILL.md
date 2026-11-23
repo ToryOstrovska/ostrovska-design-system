@@ -23,7 +23,7 @@ Storybook показує токени й компоненти дизайн-си�
 - Радіуси: `rounded-control` (кнопки, перемикач, чипи, поля форми, бургер), `rounded-card` (картки, бульбашка). Поляроїд без радіуса.
 - Розміри тексту: `text-caption`, `text-small`, `text-body`, `text-lead`, `text-heading`, `text-display`, `text-button` (з жирністю 600), `text-hand` (з жирністю 700). Висота рядка й жирність задані парами в `@theme` (`--text-*--line-height`, `--text-*--font-weight`). Шрифт і регістр токен не задає: `text-heading` і `text-display` разом із `font-display`, `text-hand` з `font-hand`. Підпис над заголовком — `text-small font-medium uppercase`.
 - Шрифти: `font-sans` (Onest, за замовчуванням), `font-display` (Dela Gothic One), `font-hand` (Caveat Bold). Підключені через `next/font` в `app/fonts.ts` (latin + cyrillic).
-- Пропорції картинок: `aspect-cover` (16/9, обкладинка кейсу), `aspect-portrait` (7/8, фото в поляроїді); стандартні `aspect-*` Tailwind теж доступні.
+- Пропорції картинок: `aspect-cover` (16/9, обкладинка кейсу), `aspect-portrait` (7/8, фото в поляроїді).
 - Розкладка, лише для сторінок, не для компонентів: `max-w-page` (ширина контенту), `section` (відстань між секціями: `py-section`, `gap-section`).
 - Темна тема: атрибут `data-theme="dark"` на `<html>` перевизначає ті самі `--color-*`. Класи ті самі, `dark:` не потрібен. У Storybook тему перемикає кнопка «Тема» в тулбарі.
 - Відступи: тільки 8, 12, 16, 24, 32 px, тобто числа 2, 3, 4, 6, 8 у класах (`p-2`, `gap-4`).
