@@ -33,6 +33,7 @@
 Кожен компонент лежить у `components/<Назва>/` разом з історією (`.stories.tsx`) і документацією (`.mdx`). Повний опис — на сторінці Docs у Storybook.
 
 - **Button** — [components/Button/Button.tsx](components/Button/Button.tsx), Storybook: Components → Button. Варіанти `primary` (заливка `action`, текст `canvas`) і `secondary` (фон `canvas`, межа `ink-muted`, текст `ink`); розміри `md` і `lg`; кути `rounded-control`. Hover: `bg-action/85` і `bg-ink/5` + межа `ink`. Фокус: контур `accent` 2 px з відступом 2 px. Вимкнена — через `aria-disabled` (не `disabled`), лишається у фокусі; пояснення `disabledHint` під кнопкою звʼязане через `aria-describedby`. Для переходу на іншу сторінку — посилання, не кнопка.
+- **FormField** (поле форми) — [components/FormField/FormField.tsx](components/FormField/FormField.tsx), Storybook: Components → FormField. Однорядкове текстове поле; підпис (`text-small`) завжди над полем, справжній `<label for>`. Фон `surface`, межа 2 px `ink-muted` (не `line`), кути `rounded-field`, текст `text-body`. Hover: межа `ink`. Фокус: контур `accent` 2 px з відступом 2 px. Помилка (`error` + `errorMessage`): межа `danger`, під полем іконка й текст `danger`; `aria-invalid="true"`, `aria-describedby` на текст помилки, оголошення через `aria-live="polite"`. Disabled — атрибут `disabled`: фон `canvas`, пунктирна межа й текст `ink-muted`.
 
 ## Правила
 

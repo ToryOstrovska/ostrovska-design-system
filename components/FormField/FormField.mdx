@@ -1,0 +1,80 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as FormFieldStories from "./FormField.stories";
+
+<Meta of={FormFieldStories} />
+
+# Поле форми (FormField)
+
+Однорядкове текстове поле з підписом над ним: імʼя, email, тема листа. Підпис завжди над полем
+і звʼязаний з ним справжнім `<label for>`, тому клік по підпису ставить курсор у поле.
+
+## Параметри
+
+- `label` — текст підпису над полем. Обовʼязковий.
+- `id` — `id` поля. Якщо не передано, створюється автоматично.
+- `type` — тип поля (`text`, `email`, `tel` тощо). За замовчуванням `text`.
+- `value` / `defaultValue` — значення поля. Порожнє — стан default, з текстом — заповнене.
+- `placeholder` — підказка в порожньому полі. Не заміняє підпис.
+- `error` — `true` / `false`, за замовчуванням `false`. Вмикає стан помилки.
+- `errorMessage` — текст помилки під полем. Показується лише разом з `error`.
+- `disabled` — `true` / `false`, за замовчуванням `false`.
+
+Інші атрибути `<input>` (`name`, `required`, `autoComplete`, `onChange` тощо) передаються як є.
+`className` ставиться на обгортку (підпис + поле + помилка).
+
+## Стани
+
+- **default** — фон `surface`, межа `ink-muted` товщиною 2 (контраст не менше 3:1), підпис `ink`,
+  підказка `ink-muted`.
+- **hover** — нових токенів немає: межа темнішає до `ink`, як у другорядної кнопки.
+- **focus** (з клавіатури й мишею) — контур `accent` товщиною 2 з відступом 2 від поля.
+- **заповнене** — введений текст кольором `ink`, решта як у default.
+- **помилка** — межа `danger`; під полем іконка помилки й текст `errorMessage` кольором `danger`.
+  На полі `aria-invalid="true"` і `aria-describedby` на текст помилки, а сам текст оголошується
+  читачем екрана через `aria-live="polite"`.
+- **disabled** — фон `canvas`, пунктирна межа `ink-muted`, текст і підпис `ink-muted`,
+  курсор «заборонено», без hover. Поле недоступне для введення й для Tab. Помилка не показується.
+
+## Токени
+
+- Кольори: `surface`, `canvas`, `ink`, `ink-muted`, `accent`, `danger`.
+- Текст: `text-body` (поле), `text-small` (підпис і помилка), шрифт `font-sans`.
+- Радіус: `rounded-field`.
+- Відступи: кроки 2, 3, 4 (між підписом, полем і помилкою — 2; усередині поля — 4 × 3).
+
+## Коли використовувати
+
+- Для короткої відповіді в один рядок: імʼя, email, телефон, тема.
+- Стан **помилка** — після перевірки, коли значення не підходить; текст пояснює, що виправити.
+- Стан **disabled** — коли поле поки недоступне (наприклад, форма вже відправляється).
+
+Коли не використовувати: для довгого тексту (потрібне багаторядкове поле), для вибору з варіантів
+(перемикачі чи список), підказка в `placeholder` замість підпису, помилка без тексту.
+
+## Як брати в код
+
+<Source
+  language="tsx"
+  dark
+  code={`import { FormField } from "@/components/FormField/FormField";
+
+<FormField label="Імʼя" name="name" autoComplete="name" />
+<FormField label="Email" type="email" name="email" placeholder="name@example.com" />
+<FormField
+  label="Email"
+  type="email"
+  name="email"
+  error
+  errorMessage="Вкажіть email у форматі name@example.com"
+/>
+<FormField label="Тема" name="subject" disabled />`}
+/>
+
+## Спробувати
+
+Наведи мишу, щоб побачити hover, натисни Tab, щоб побачити контур фокусу.
+Значення поля (заповнене), помилка, її текст і disabled перемикаються в панелі нижче.
+
+<Canvas of={FormFieldStories.Playground} />
+
+<Controls of={FormFieldStories.Playground} />
