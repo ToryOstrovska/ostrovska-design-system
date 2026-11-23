@@ -46,7 +46,16 @@ export function Hero() {
           <p className="rounded-card border-2 border-ink bg-surface px-4 py-3 font-hand text-hand whitespace-pre-line text-ink">
             {"Привіт! Я Вікторія,\nрада, що ти тут"}
           </p>
-          <svg viewBox="0 8 60 26" width="60" height="26" aria-hidden="true" className="-mt-0.5 block fill-surface text-ink">
+          {/* viewBox починається з y=10, а overflow="visible" дає смужці y 8–10 намалюватись
+              над SVG, поверх нижньої межі бульбашки: перекриття без відʼємного відступу. */}
+          <svg
+            viewBox="0 10 60 24"
+            width="60"
+            height="24"
+            overflow="visible"
+            aria-hidden="true"
+            className="block fill-surface text-ink"
+          >
             <use href={`${bubbleTail.src}#tail`} />
           </svg>
         </div>
