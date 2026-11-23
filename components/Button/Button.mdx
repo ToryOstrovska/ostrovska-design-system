@@ -1,0 +1,75 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as ButtonStories from "./Button.stories";
+
+<Meta of={ButtonStories} />
+
+# Кнопка (Button)
+
+Кнопка запускає дію: написати, відкрити кейс, надіслати форму. Для переходу на іншу сторінку
+бери посилання, а не кнопку.
+
+## Параметри
+
+- `children` — текст кнопки, коротке дієслово. Обовʼязковий.
+- `variant` — `primary` або `secondary`. За замовчуванням `primary`.
+- `size` — `md` (звичайна) або `lg` (велика). За замовчуванням `md`.
+- `disabled` — `true` / `false`, за замовчуванням `false`. Вимикає кнопку через `aria-disabled`:
+  вона лишається у фокусі, натискання нічого не робить.
+- `disabledHint` — текст пояснення під вимкненою кнопкою, звʼязаний з нею через `aria-describedby`.
+  Без значення за замовчуванням.
+- `type` — `button`, `submit` або `reset`. За замовчуванням `button`.
+
+Інші атрибути `<button>` (`onClick`, `aria-label`, `className` тощо) передаються як є.
+
+## Варіанти
+
+- **primary** — заливка `action`, межа `action`, текст `canvas`.
+- **secondary** — без заливки (фон `canvas`), межа `ink-muted`, текст `ink`.
+
+Розміри: **md** — відступи 24 × 12, **lg** — відступи 32 × 16. Текст в обох — `text-button`.
+
+## Стани
+
+- **default** — як описано у варіантах.
+- **hover** — текст підкреслюється; у secondary межа темніє до `ink`.
+- **focus** (з клавіатури) — контур `accent` товщиною 2 з відступом 2 від кнопки.
+- **disabled** — для обох варіантів: фон `canvas`, пунктирна межа `ink-muted`, текст `ink-muted`,
+  курсор «заборонено», без hover. Кнопка лишається у фокусі. Якщо передано `disabledHint`,
+  під кнопкою зʼявляється пояснення (`text-small`, `ink-muted`).
+
+## Токени
+
+- Кольори: `action`, `canvas`, `ink`, `ink-muted`, `accent`.
+- Текст: `text-button` (пояснення — `text-small`), шрифт `font-sans`.
+- Радіус: `rounded-control`.
+- Відступи: кроки 2, 3, 4, 6, 8.
+
+## Коли використовувати
+
+- **primary** — одна головна дія на екрані або в блоці («Написати мені»).
+- **secondary** — дія поруч із головною або менш важлива («Дивитись кейси»).
+- **disabled** — коли дія поки недоступна; завжди пиши `disabledHint`, чому саме.
+
+Коли не використовувати: для переходу між сторінками (бери посилання), дві primary поруч,
+вимкнена кнопка без пояснення.
+
+## Як брати в код
+
+<Source
+  language="tsx"
+  dark
+  code={`import { Button } from "@/components/Button/Button";
+
+<Button>Написати мені</Button>
+<Button variant="secondary" size="lg">Дивитись кейси</Button>
+<Button disabled disabledHint="Спершу заповніть усі поля форми">Надіслати</Button>`}
+/>
+
+## Спробувати
+
+Наведи мишу, щоб побачити hover, натисни Tab, щоб побачити контур фокусу.
+Варіант, розмір і disabled перемикаються в панелі нижче.
+
+<Canvas of={ButtonStories.Playground} />
+
+<Controls of={ButtonStories.Playground} />
