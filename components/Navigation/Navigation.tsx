@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import logo from "@/assets/logo-fox.svg";
+import { THEME_KEY } from "@/app/theme";
 
 export type NavigationItemId = "cases" | "about" | "contacts";
 export type NavigationLanguage = "ua" | "en" | "de";
@@ -41,8 +41,9 @@ export interface NavigationProps {
 const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 // ---------- Тема ----------
-
-const THEME_KEY = "theme";
+// Збережену тему ставить скрипт у <head> layout сайту (app/theme.ts), ще до показу сторінки.
+// Перемикач лише читає поточний data-theme з <html> і змінює його по кліку,
+// тому в Storybook тему з тулбара ніщо не перебиває.
 
 function subscribeTheme(callback: () => void) {
   const observer = new MutationObserver(callback);
@@ -53,15 +54,6 @@ function subscribeTheme(callback: () => void) {
 function setTheme(dark: boolean) {
   if (dark) document.documentElement.setAttribute("data-theme", "dark");
   else document.documentElement.removeAttribute("data-theme");
-}
-
-function readSavedTheme(): "light" | "dark" | null {
-  try {
-    const value = localStorage.getItem(THEME_KEY);
-    return value === "dark" || value === "light" ? value : null;
-  } catch {
-    return null;
-  }
 }
 
 function saveTheme(dark: boolean) {
@@ -79,13 +71,6 @@ function ThemeSwitch() {
     () => document.documentElement.getAttribute("data-theme") === "dark",
     () => false,
   );
-
-  // Під час першого показу відновлюємо збережений вибір, а якщо його немає — тему системи.
-  useEffect(() => {
-    const saved = readSavedTheme();
-    if (saved) setTheme(saved === "dark");
-    else if (window.matchMedia("(prefers-color-scheme: dark)").matches) setTheme(true);
-  }, []);
 
   function toggle() {
     setTheme(!dark);
@@ -215,7 +200,17 @@ export function Navigation({ current, language = "ua", onLanguageChange, classNa
         aria-label="Вікторія Островська — на головну"
         className={`flex min-w-0 items-center gap-3 lg:gap-6 ${focusRing}`}
       >
-        <Image src={logo} alt="" unoptimized priority className="h-10 w-auto shrink-0 lg:h-20" />
+        {/* Логотип з assets через <use>: плита бере колір через currentColor від text-ink
+            (у темній темі стає кремовою), кольори лисички задані в самому SVG. */}
+        <svg
+          viewBox="0 0 128 80"
+          width="128"
+          height="80"
+          aria-hidden="true"
+          className="h-10 w-auto shrink-0 text-ink lg:h-20"
+        >
+          <use href={`${logo.src}#logo`} />
+        </svg>
         <span className="font-hand text-lead font-bold whitespace-nowrap text-ink lg:text-hand">Вікторія Островська</span>
       </Link>
 

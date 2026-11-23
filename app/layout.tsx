@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { fontVariables } from "./fonts";
+import { themeScript } from "./theme";
+import { ThemeRestore } from "./ThemeRestore";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,8 +11,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="uk" className={fontVariables}>
-      <body>{children}</body>
+    // suppressHydrationWarning: скрипт теми міняє data-theme на <html> ще до React, і це очікувано.
+    <html lang="uk" className={fontVariables} suppressHydrationWarning>
+      <head>
+        {/* Збережена тема ставиться до першого показу сторінки — без блимання. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>
+        <ThemeRestore />
+        {children}
+      </body>
     </html>
   );
 }
