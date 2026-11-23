@@ -1,6 +1,109 @@
 @import "tailwindcss";
 
 /*
-  Токени дизайн-системи з'являться тут (через @theme).
-  Стартові стилі create-next-app прибрано навмисно.
+  Токени дизайн-системи. Джерело: docs/tokens-draft.md.
+  Назви — за роллю, не за кольором.
+  Відступи окремо не оголошуємо: беремо лише кроки 8, 12, 16, 24, 32 px
+  (у Tailwind це 2, 3, 4, 6, 8, наприклад p-4).
 */
+
+@theme {
+  /* ---------- Кольори (світла тема, за замовчуванням) ---------- */
+  --color-*: initial;
+
+  --color-canvas: #fbf6ec; /* фон сторінки */
+  --color-surface: #ffffff; /* картки, поля */
+  --color-line: #ede5d6; /* лише декоративні лінії й рамки карток, не межі полів */
+  --color-accent: #b04f1a; /* акцентний текст, поточна мова, контур фокусу */
+  --color-ink: #1e1b16; /* основний текст */
+  --color-ink-muted: #5e574c; /* приглушений текст, межі полів і другорядних кнопок */
+  --color-danger: #b0244a; /* текст помилки й межа поля в стані помилки */
+  --color-action: #1e1b16; /* заливка основної кнопки, текст на ній — canvas */
+  --color-bubble: #ffffff; /* фон бульбашки, межа — ink */
+  --color-bubble-ink: #1e1b16; /* текст у бульбашці */
+
+  /* ---------- Розміри тексту ---------- */
+  --text-*: initial;
+
+  --text-caption: 0.75rem; /* 12 */
+  --text-caption--line-height: 1rem; /* 16 */
+
+  --text-body: 1rem; /* 16 */
+  --text-body--line-height: 1.5rem; /* 24 */
+
+  --text-lead: 1.25rem; /* 20 */
+  --text-lead--line-height: 1.875rem; /* 30 */
+
+  --text-heading: 1.75rem; /* 28, разом із font-display */
+  --text-heading--line-height: 2.25rem; /* 36 */
+
+  --text-display: 3rem; /* 48, разом із font-display */
+  --text-display--line-height: 3.75rem; /* 60 */
+
+  --text-button: 1rem; /* 16 */
+  --text-button--line-height: 1.25rem; /* 20 */
+  --text-button--font-weight: 600;
+
+  --text-label: 0.875rem; /* 14, разом із uppercase */
+  --text-label--line-height: 1.25rem; /* 20 */
+  --text-label--letter-spacing: 0.08em;
+  --text-label--font-weight: 500;
+
+  --text-small: 0.875rem; /* 14 */
+  --text-small--line-height: 1.25rem; /* 20 */
+
+  --text-hand: 1.5rem; /* 24, разом із font-hand */
+  --text-hand--line-height: 1.75rem; /* 28 */
+  --text-hand--font-weight: 700;
+
+  /* ---------- Радіуси ---------- */
+  --radius-*: initial;
+
+  --radius-control: 999px; /* кнопки, перемикач, чипи */
+  --radius-field: 12px; /* поля форми */
+  --radius-card: 24px; /* картки, бульбашка */
+
+  /* ---------- Пропорції картинок (стандартні лишаємо) ---------- */
+  --aspect-cover: 16 / 9; /* обкладинка кейсу */
+  --aspect-portrait: 7 / 8; /* фото в поляроїді */
+
+  /* ---------- Розкладка сторінки ---------- */
+  /* Лише для сторінок, не для компонентів. */
+  --container-page: 1296px; /* ширина контенту: max-w-page */
+  --spacing-section: 80px; /* відстань між секціями: py-section, gap-section */
+}
+
+/* Шрифти: змінні --font-onest, --font-dela-gothic, --font-caveat задає next/font (app/fonts.ts). */
+@theme inline {
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif; /* текст і інтерфейс */
+  --font-display: var(--font-dela-gothic), ui-sans-serif, system-ui, sans-serif; /* display, heading */
+  --font-hand: var(--font-caveat), cursive; /* рукописні підписи */
+}
+
+/* Темна тема: вмикається атрибутом data-theme="dark" на <html>.
+   Класи ті самі (bg-canvas, text-ink), змінюються лише значення. */
+:root {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-canvas: #1e1b16;
+  --color-surface: #2a2620;
+  --color-line: #3e372d;
+  --color-accent: #f0894a;
+  --color-ink: #f6efe2;
+  --color-ink-muted: #c9bfae;
+  --color-danger: #f07c84;
+  --color-action: #f0894a;
+  --color-bubble: #f6efe2;
+  --color-bubble-ink: #1e1b16;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+}
