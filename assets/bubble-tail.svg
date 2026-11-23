@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="26" viewBox="0 8 60 26">
+<!-- Хвостик бульбашки. Кольори не задані в файлі, їх дає <svg> у коді:
+     заливка успадковується (fill-bubble), обвідка — currentColor (text-ink).
+     Прямокутник перекриває нижню межу бульбашки, щоб хвостик зливався з нею. -->
+<g id="tail">
+<path d="M30 10H54L36 32L30 10Z" stroke="currentColor" stroke-width="2"/>
+<rect x="32" y="8" width="20" height="4"/>
+</g>
+</svg>
