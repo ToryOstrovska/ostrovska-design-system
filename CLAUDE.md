@@ -30,7 +30,9 @@
 
 ## Компоненти
 
-Заповнимо далі.
+Кожен компонент лежить у `components/<Назва>/` разом з історією (`.stories.tsx`) і документацією (`.mdx`). Повний опис — на сторінці Docs у Storybook.
+
+- **Button** — [components/Button/Button.tsx](components/Button/Button.tsx), Storybook: Components → Button. Варіанти `primary` (заливка `action`, текст `canvas`) і `secondary` (фон `canvas`, межа `ink-muted`, текст `ink`); розміри `md` і `lg`; кути `rounded-control`. Hover: `bg-action/85` і `bg-ink/5` + межа `ink`. Фокус: контур `accent` 2 px з відступом 2 px. Вимкнена — через `aria-disabled` (не `disabled`), лишається у фокусі; пояснення `disabledHint` під кнопкою звʼязане через `aria-describedby`. Для переходу на іншу сторінку — посилання, не кнопка.
 
 ## Правила
 

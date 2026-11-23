@@ -26,7 +26,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-control border-2 font-sans text-button " +
-  "underline-offset-4 transition-colors " +
+  "transition-colors " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 const sizes: Record<ButtonSize, string> = {
@@ -34,11 +34,12 @@ const sizes: Record<ButtonSize, string> = {
   lg: "px-8 py-4",
 };
 
-// Робочі стани: default і hover. Hover — підкреслення тексту (окремого токена для hover немає),
-// у другорядної ще й межа темніє до ink.
+// Робочі стани: default і hover. Окремого токена для hover немає, тому hover — ті самі токени
+// з прозорістю: основна світлішає (action на 85 %), другорядна отримує легку заливку ink на 5 %
+// і межу ink.
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-action border-action text-canvas cursor-pointer hover:underline",
-  secondary: "bg-canvas border-ink-muted text-ink cursor-pointer hover:underline hover:border-ink",
+  primary: "bg-action border-action text-canvas cursor-pointer hover:bg-action/85 hover:border-action/85",
+  secondary: "bg-canvas border-ink-muted text-ink cursor-pointer hover:bg-ink/5 hover:border-ink",
 };
 
 // Вимкнений стан однаковий для обох варіантів: без заливки, приглушений текст, пунктирна межа.
