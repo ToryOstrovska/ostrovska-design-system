@@ -42,3 +42,9 @@ next-env.d.ts
 
 # keep the empty template
 !.env.example
+
+*storybook.log
+storybook-static
+
+# Storybook build output (served by Next.js at /storybook)
+public/storybook
