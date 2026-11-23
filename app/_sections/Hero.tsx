@@ -27,13 +27,7 @@ export function Hero() {
         <p className="text-lead text-ink-muted">Щоб покупець не кинув кошик на півдорозі.</p>
 
         <div className="flex flex-wrap items-start gap-3 pt-4">
-          <Button
-            size="lg"
-            // У системі кнопка — лише <button>, тому перехід на секцію робимо через hash, як у посилання-якоря.
-            onClick={() => {
-              window.location.hash = "cases";
-            }}
-          >
+          <Button size="lg" href="#cases">
             Дивитись кейси
             <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true" className="size-4.5 shrink-0">
               <use href={`${chevronDown.src}#icon`} />

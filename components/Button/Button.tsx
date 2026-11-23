@@ -1,11 +1,18 @@
 "use client";
 
-import { useId, type ButtonHTMLAttributes, type MouseEvent, type ReactNode } from "react";
+import Link from "next/link";
+import {
+  useId,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 
 export type ButtonVariant = "primary" | "secondary";
 export type ButtonSize = "md" | "lg";
 
-export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+interface ButtonCommonProps {
   /** Текст кнопки. Коротке дієслово: «Написати мені», «Дивитись кейс». */
   children: ReactNode;
   /** `primary` — головна дія екрана (заливка `action`), `secondary` — другорядна (без заливки, межа `ink-muted`). */
@@ -15,6 +22,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   /**
    * Вимикає кнопку через `aria-disabled`, а не атрибут `disabled`:
    * кнопка лишається у фокусі, читач екрана її озвучує, а натискання нічого не робить.
+   * Вимкнене посилання втрачає `href`, тож нікуди не веде.
    */
   disabled?: boolean;
   /**
@@ -22,7 +30,23 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
    * і звʼязане з нею через `aria-describedby`.
    */
   disabledHint?: string;
+  className?: string;
 }
+
+/** Без `href` — звичайна кнопка `<button>`. */
+export type ButtonAsButtonProps = ButtonCommonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonCommonProps> & {
+    href?: undefined;
+  };
+
+/** З `href` — посилання (`next/link`) з тими самими стилями й станами. */
+export type ButtonAsLinkProps = ButtonCommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof ButtonCommonProps | "href"> & {
+    /** Куди веде посилання: сторінка (`/about`) або якір на секцію (`#cases`). */
+    href: string;
+  };
+
+export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-control border-2 font-sans text-button " +
@@ -47,52 +71,95 @@ const disabledStyle = "bg-canvas border-ink-muted border-dashed text-ink-muted c
 
 /**
  * Кнопка дизайн-системи. Два варіанти (основна й другорядна), два розміри,
- * стани default, hover, focus і disabled. Будується лише з токенів `@theme`.
+ * стани default, hover, focus і disabled. З `href` рендериться як посилання (`next/link`)
+ * з тим самим виглядом. Будується лише з токенів `@theme`.
  */
-export function Button({
-  children,
-  variant = "primary",
-  size = "md",
-  disabled = false,
-  disabledHint,
-  type = "button",
-  className,
-  onClick,
-  "aria-describedby": describedBy,
-  ...rest
-}: ButtonProps) {
+export function Button(props: ButtonProps) {
   const hintId = useId();
+  // Спільні пропси забираємо одразу; решта — атрибути <a> або <button>.
+  const {
+    children,
+    variant = "primary",
+    size = "md",
+    disabled = false,
+    disabledHint,
+    className,
+    href,
+    "aria-describedby": ariaDescribedBy,
+    ...rest
+  } = props;
   const showHint = disabled && Boolean(disabledHint);
 
-  function handleClick(event: MouseEvent<HTMLButtonElement>) {
+  const classes = [base, sizes[size], disabled ? disabledStyle : variants[variant], className]
+    .filter(Boolean)
+    .join(" ");
+  const describedBy =
+    [ariaDescribedBy, showHint ? hintId : null].filter(Boolean).join(" ") || undefined;
+
+  let control: ReactNode;
+
+  // Порожній href (наприклад, очищене поле в Controls) — теж кнопка.
+  if (href) {
+    const { onClick, ...anchorRest } = rest as Omit<ButtonAsLinkProps, keyof ButtonCommonProps | "href">;
+
     if (disabled) {
-      // Блокуємо і дію, і відправку форми, якщо type="submit".
-      event.preventDefault();
-      return;
+      // Вимкнене посилання: без href нікуди не веде, але лишається у фокусі (tabIndex 0)
+      // і озвучується як посилання з aria-disabled.
+      control = (
+        <a
+          {...anchorRest}
+          role="link"
+          tabIndex={0}
+          aria-disabled="true"
+          aria-describedby={describedBy}
+          onClick={(event: MouseEvent<HTMLAnchorElement>) => event.preventDefault()}
+          className={classes}
+        >
+          {children}
+        </a>
+      );
+    } else {
+      control = (
+        <Link {...anchorRest} href={href} onClick={onClick} aria-describedby={describedBy} className={classes}>
+          {children}
+        </Link>
+      );
     }
-    onClick?.(event);
+  } else {
+    const {
+      type = "button",
+      onClick,
+      ...buttonRest
+    } = rest as Omit<ButtonAsButtonProps, keyof ButtonCommonProps | "href">;
+
+    function handleClick(event: MouseEvent<HTMLButtonElement>) {
+      if (disabled) {
+        // Блокуємо і дію, і відправку форми, якщо type="submit".
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+    }
+
+    control = (
+      <button
+        {...buttonRest}
+        type={type}
+        aria-disabled={disabled || undefined}
+        aria-describedby={describedBy}
+        onClick={handleClick}
+        className={classes}
+      >
+        {children}
+      </button>
+    );
   }
 
-  const button = (
-    <button
-      {...rest}
-      type={type}
-      aria-disabled={disabled || undefined}
-      aria-describedby={[describedBy, showHint ? hintId : null].filter(Boolean).join(" ") || undefined}
-      onClick={handleClick}
-      className={[base, sizes[size], disabled ? disabledStyle : variants[variant], className]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      {children}
-    </button>
-  );
-
-  if (!showHint) return button;
+  if (!showHint) return control;
 
   return (
     <span className="inline-flex flex-col items-start gap-2">
-      {button}
+      {control}
       <span id={hintId} className="text-small text-ink-muted">
         {disabledHint}
       </span>

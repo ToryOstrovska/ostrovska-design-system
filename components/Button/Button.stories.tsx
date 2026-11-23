@@ -9,6 +9,10 @@ const meta = {
     size: { control: "select", options: ["md", "lg"], description: "Розмір" },
     disabled: { control: "boolean", description: "Вимкнена (через aria-disabled)" },
     disabledHint: { control: "text", description: "Пояснення під вимкненою кнопкою" },
+    href: {
+      control: "text",
+      description: "Адреса (`/about`, `#cases`). З нею — посилання next/link з тим самим виглядом; без неї — кнопка",
+    },
     children: { control: "text", description: "Текст кнопки" },
   },
   args: {
