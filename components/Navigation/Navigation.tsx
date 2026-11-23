@@ -84,7 +84,7 @@ function ThemeSwitch() {
       aria-checked={dark}
       aria-label="Темна тема"
       onClick={toggle}
-      className={`flex h-7.5 w-14 shrink-0 cursor-pointer items-center rounded-control border-2 border-ink bg-surface ${
+      className={`flex h-7.5 w-14 shrink-0 cursor-pointer items-center rounded-control border-2 border-ink bg-surface hover:bg-ink/5 ${
         dark ? "flex-row-reverse" : ""
       } ${focusRing}`}
     >
@@ -99,7 +99,7 @@ function ThemeSwitch() {
 
 function MoonIcon() {
   return (
-    <svg viewBox="0 0 14 14" className="size-3.5" fill="currentColor" aria-hidden="true">
+    <svg viewBox="0 0 14 14" className="size-4" fill="currentColor" aria-hidden="true">
       <path d="M5.74 0.12C5.27 0.97 5 1.95 5 3c0 3.31 2.69 6 6 6 1.05 0 2.03-.27 2.88-.74C13.29 11.53 10.44 14 7 14 3.13 14 0 10.87 0 7 0 3.57 2.47.71 5.74.12Z" />
     </svg>
   );
@@ -198,7 +198,7 @@ export function Navigation({ current, language = "ua", onLanguageChange, classNa
       <Link
         href="/"
         aria-label="Вікторія Островська — на головну"
-        className={`flex min-w-0 items-center gap-3 lg:gap-6 ${focusRing}`}
+        className={`group flex min-w-0 items-center gap-3 lg:gap-6 ${focusRing}`}
       >
         {/* Логотип з assets через <use>: плита бере колір через currentColor від text-ink
             (у темній темі стає кремовою), кольори лисички задані в самому SVG. */}
@@ -211,7 +211,7 @@ export function Navigation({ current, language = "ua", onLanguageChange, classNa
         >
           <use href={`${logo.src}#logo`} />
         </svg>
-        <span className="font-hand text-lead font-bold whitespace-nowrap text-ink lg:text-hand">Вікторія Островська</span>
+        <span className="font-hand text-lead font-bold whitespace-nowrap text-ink decoration-2 underline-offset-8 group-hover:underline lg:text-hand">Вікторія Островська</span>
       </Link>
 
       <nav aria-label="Головне меню" className="flex items-center gap-3 lg:gap-8">
@@ -245,7 +245,7 @@ export function Navigation({ current, language = "ua", onLanguageChange, classNa
           onClick={() => (open ? close() : setOpen(true))}
           className={`flex size-11 cursor-pointer items-center justify-center rounded-field border-2 border-ink-muted text-ink hover:border-ink lg:hidden ${focusRing}`}
         >
-          <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
             {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
           </svg>
         </button>
