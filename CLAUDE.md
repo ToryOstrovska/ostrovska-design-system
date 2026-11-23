@@ -58,7 +58,7 @@
 - **Відступи:** окремих токенів немає, лише кроки 8, 12, 16, 24, 32 px — у класах `2`, `3`, `4`, `6`, `8` (`p-4`, `gap-6`, `px-8`).
 - **Розкладка сторінки** (лише на сторінках, не в компонентах): `max-w-page` (1296px), `section` (80px: `py-section`, `gap-section`).
 - **Радіуси — лише два** (`--radius-*: initial`): `rounded-control` (999px: кнопки, перемикач, чипи, поля форми, бургер), `rounded-card` (24px: картки, бульбашка). Поляроїд — без радіуса.
-- **Пропорції:** `aspect-cover` (16/9, обкладинка кейсу), `aspect-portrait` (7/8, фото в поляроїді); стандартні (`aspect-square`, `aspect-video`) теж доступні.
+- **Пропорції:** `aspect-cover` (16/9, обкладинка кейсу), `aspect-portrait` (7/8, фото в поляроїді).
 
 ## Компоненти
 
@@ -100,4 +100,4 @@
 
 - План сайту: [docs/plan.md](docs/plan.md)
 - Рішення щодо токенів: [docs/tokens-draft.md](docs/tokens-draft.md)
-- Storybook: `npm run storybook` → http://localhost:6006 (Docs кожного компонента, сторінка «Токени»); збірка — `npm run build-storybook`
+- Storybook: https://ostrovska-design-system.vercel.app/storybook/ (живий); локально `npm run storybook` → http://localhost:6006 (Docs кожного компонента, сторінка «Токени»); збірка — `npm run build-storybook`
