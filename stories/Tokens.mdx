@@ -11,15 +11,13 @@ import { Meta, ColorPalette, ColorItem, Typeset } from "@storybook/addon-docs/bl
 
 <ColorPalette>
   <ColorItem title="canvas" subtitle="bg-canvas · фон сторінки" colors={{ canvas: "var(--color-canvas)" }} />
-  <ColorItem title="surface" subtitle="bg-surface · картки, поля" colors={{ surface: "var(--color-surface)" }} />
+  <ColorItem title="surface" subtitle="bg-surface · картки, поля, бульбашка" colors={{ surface: "var(--color-surface)" }} />
   <ColorItem title="line" subtitle="border-line · лише декоративні лінії" colors={{ line: "var(--color-line)" }} />
   <ColorItem title="accent" subtitle="акцент, поточна мова, контур фокусу" colors={{ accent: "var(--color-accent)" }} />
   <ColorItem title="ink" subtitle="text-ink · основний текст" colors={{ ink: "var(--color-ink)" }} />
   <ColorItem title="ink-muted" subtitle="приглушений текст, межі полів" colors={{ "ink-muted": "var(--color-ink-muted)" }} />
   <ColorItem title="danger" subtitle="текст і межа помилки" colors={{ danger: "var(--color-danger)" }} />
   <ColorItem title="action" subtitle="bg-action · заливка основної кнопки" colors={{ action: "var(--color-action)" }} />
-  <ColorItem title="bubble" subtitle="bg-bubble · фон бульбашки" colors={{ bubble: "var(--color-bubble)" }} />
-  <ColorItem title="bubble-ink" subtitle="text-bubble-ink · текст у бульбашці" colors={{ "bubble-ink": "var(--color-bubble-ink)" }} />
 </ColorPalette>
 
 ## Шкала шрифтів
@@ -61,15 +59,13 @@ import { Meta, ColorPalette, ColorItem, Typeset } from "@storybook/addon-docs/bl
   <p className="text-small">text-small · Другорядний текст</p>
   <p className="text-caption text-ink-muted">text-caption · Підпис до картинки</p>
   <p className="text-button">text-button · Написати мені</p>
-  <p className="text-label uppercase">text-label · Мітка</p>
   <p className="text-hand font-hand">text-hand · рукописний підпис</p>
 </div>
 
 ## Радіуси
 
-<div className="sb-unstyled bg-canvas text-ink rounded-card border border-line p-6 grid grid-cols-3 gap-6">
-  <div className="rounded-control bg-surface border border-ink-muted p-4 flex items-center justify-center text-center text-small"><p className="flex flex-col gap-2"><span className="whitespace-nowrap">rounded-control</span><span className="text-ink-muted">кнопки, чипи</span></p></div>
-  <div className="rounded-field bg-surface border border-ink-muted p-4 flex items-center justify-center text-center text-small"><p className="flex flex-col gap-2"><span className="whitespace-nowrap">rounded-field</span><span className="text-ink-muted">поля форми</span></p></div>
+<div className="sb-unstyled bg-canvas text-ink rounded-card border border-line p-6 grid grid-cols-2 gap-6">
+  <div className="rounded-control bg-surface border border-ink-muted p-4 flex items-center justify-center text-center text-small"><p className="flex flex-col gap-2"><span className="whitespace-nowrap">rounded-control</span><span className="text-ink-muted">кнопки, чипи, поля форми</span></p></div>
   <div className="rounded-card bg-surface border border-line p-4 flex items-center justify-center text-center text-small"><p className="flex flex-col gap-2"><span className="whitespace-nowrap">rounded-card</span><span className="text-ink-muted">картки, бульбашка</span></p></div>
 </div>
 

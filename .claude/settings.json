@@ -7,9 +7,7 @@
       "Bash(vercel deploy --target production *)",
       "Bash(vercel promote *)",
       "Bash(vercel rollback *)",
-      "Bash(git push *)",
-      "Bash(git push)",
-      "Bash(vercel --prod)"
+      "Bash(git push *)"
     ],
     "deny": [
       "Read(./.env*)"

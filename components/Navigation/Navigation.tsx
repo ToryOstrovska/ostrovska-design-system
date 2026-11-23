@@ -185,7 +185,7 @@ export function Navigation({ current, language = "ua", onLanguageChange, classNa
     };
   }, [open]);
 
-  const itemBase = `rounded-control text-body font-semibold underline-offset-8 decoration-2 ${focusRing}`;
+  const itemBase = `rounded-control text-button underline-offset-8 decoration-2 ${focusRing}`;
   const itemState = (active: boolean) => (active ? "text-accent underline" : "text-ink hover:underline");
 
   return (
@@ -243,7 +243,7 @@ export function Navigation({ current, language = "ua", onLanguageChange, classNa
           aria-controls={panelId}
           aria-label={open ? "Закрити меню" : "Відкрити меню"}
           onClick={() => (open ? close() : setOpen(true))}
-          className={`flex size-11 cursor-pointer items-center justify-center rounded-field border-2 border-ink-muted text-ink hover:border-ink lg:hidden ${focusRing}`}
+          className={`flex size-11 cursor-pointer items-center justify-center rounded-control border-2 border-ink-muted text-ink hover:border-ink lg:hidden ${focusRing}`}
         >
           <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
             {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}

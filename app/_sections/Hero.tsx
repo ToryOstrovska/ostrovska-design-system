@@ -19,7 +19,7 @@ export function Hero() {
     >
       {/* Текст */}
       <div className="flex w-full min-w-0 flex-col items-start gap-6 lg:max-w-155">
-        <p className="text-label text-accent uppercase">UX/UI дизайнерка · Німеччина</p>
+        <p className="text-small font-medium uppercase text-accent">UX/UI дизайнерка · Німеччина</p>
         {/* До sm — text-heading: «e‑commerce-» у text-display (382 px) ширше за екран 375 px. */}
         <h1 id="hero-title" className="font-display text-heading text-ink sm:text-display">
           Проєктую сайти й застосунки для e‑commerce-команд
@@ -43,10 +43,10 @@ export function Hero() {
       <div className="flex shrink-0 flex-col items-start">
         {/* Бульбашка: зсунута праворуч і трохи виходить за поляроїд; хвостик вказує на фото. */}
         <div className="relative z-10 -mr-8 ml-auto flex flex-col items-start">
-          <p className="rounded-card border-2 border-ink bg-bubble px-4 py-3 font-hand text-hand whitespace-pre-line text-bubble-ink">
+          <p className="rounded-card border-2 border-ink bg-surface px-4 py-3 font-hand text-hand whitespace-pre-line text-ink">
             {"Привіт! Я Вікторія,\nрада, що ти тут"}
           </p>
-          <svg viewBox="0 8 60 26" width="60" height="26" aria-hidden="true" className="-mt-0.5 block fill-bubble text-ink">
+          <svg viewBox="0 8 60 26" width="60" height="26" aria-hidden="true" className="-mt-0.5 block fill-surface text-ink">
             <use href={`${bubbleTail.src}#tail`} />
           </svg>
         </div>

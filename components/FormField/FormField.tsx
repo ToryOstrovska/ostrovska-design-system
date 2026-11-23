@@ -21,7 +21,7 @@ export interface FormFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
 // Межа 2, фон surface, межа ink-muted (контраст не менше 3:1). Hover без нових токенів:
 // межа темнішає до ink, як у другорядної кнопки. Фокус: контур accent 2 з відступом 2.
 const base =
-  "w-full rounded-field border-2 bg-surface px-4 py-3 font-sans text-body text-ink " +
+  "w-full rounded-control border-2 bg-surface px-4 py-3 font-sans text-body text-ink " +
   "placeholder:text-ink-muted transition-colors " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 

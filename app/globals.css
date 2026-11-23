@@ -12,15 +12,13 @@
   --color-*: initial;
 
   --color-canvas: #fbf6ec; /* фон сторінки */
-  --color-surface: #ffffff; /* картки, поля */
+  --color-surface: #ffffff; /* картки, поля, бульбашка */
   --color-line: #ede5d6; /* лише декоративні лінії й рамки карток, не межі полів */
   --color-accent: #b04f1a; /* акцентний текст, поточна мова, контур фокусу */
   --color-ink: #1e1b16; /* основний текст */
   --color-ink-muted: #5e574c; /* приглушений текст, межі полів і другорядних кнопок */
   --color-danger: #b0244a; /* текст помилки й межа поля в стані помилки */
   --color-action: #1e1b16; /* заливка основної кнопки, текст на ній — canvas */
-  --color-bubble: #ffffff; /* фон бульбашки, межа — ink */
-  --color-bubble-ink: #1e1b16; /* текст у бульбашці */
 
   /* ---------- Розміри тексту ---------- */
   --text-*: initial;
@@ -44,11 +42,6 @@
   --text-button--line-height: 1.25rem; /* 20 */
   --text-button--font-weight: 600;
 
-  --text-label: 0.875rem; /* 14, разом із uppercase */
-  --text-label--line-height: 1.25rem; /* 20 */
-  --text-label--letter-spacing: 0.08em;
-  --text-label--font-weight: 500;
-
   --text-small: 0.875rem; /* 14 */
   --text-small--line-height: 1.25rem; /* 20 */
 
@@ -59,8 +52,7 @@
   /* ---------- Радіуси ---------- */
   --radius-*: initial;
 
-  --radius-control: 999px; /* кнопки, перемикач, чипи */
-  --radius-field: 12px; /* поля форми */
+  --radius-control: 999px; /* кнопки, перемикач, чипи, поля форми, бургер */
   --radius-card: 24px; /* картки, бульбашка */
 
   /* ---------- Пропорції картинок (стандартні лишаємо) ---------- */
@@ -97,8 +89,6 @@
   --color-ink-muted: #c9bfae;
   --color-danger: #f07c84;
   --color-action: #f0894a;
-  --color-bubble: #f6efe2;
-  --color-bubble-ink: #1e1b16;
 }
 
 @layer base {
