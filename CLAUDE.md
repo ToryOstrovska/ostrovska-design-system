@@ -16,7 +16,7 @@
 
 ## Токени
 
-Токени записані в `app/globals.css` (блок `@theme`), джерело рішень — [docs/tokens-draft.md](docs/tokens-draft.md). Стандартні кольори, розміри тексту й радіуси Tailwind скинуті: користуйся лише токенами нижче. Назви — за роллю, не за кольором.
+Токени записані в `app/globals.css` (блоки `@theme static`: усі змінні завжди потрапляють у CSS, навіть без класів, — сторінка «Токени» в Storybook бере їх через `var()`), джерело рішень — [docs/tokens-draft.md](docs/tokens-draft.md). Стандартні кольори, розміри тексту й радіуси Tailwind скинуті: користуйся лише токенами нижче. Назви — за роллю, не за кольором.
 
 - **Кольори** (`bg-*`, `text-*`, `border-*`): `canvas`, `surface`, `line` (лише декоративні лінії, не межі полів), `accent`, `ink`, `ink-muted`, `danger`, `action`, `bubble`, `bubble-ink`.
 - **Текст** (`text-*`, з висотою рядка): `caption`, `body`, `lead`, `heading`, `display`, `button` (з жирністю 600), `label` (з жирністю 500 і трекінгом 0.08em), `small`, `hand` (з жирністю 700). Шрифт і регістр токен не задає: `heading`/`display` — разом із `font-display`, `hand` — з `font-hand`, `label` — з `uppercase`.

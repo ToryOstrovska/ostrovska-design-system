@@ -7,7 +7,7 @@
   (у Tailwind це 2, 3, 4, 6, 8, наприклад p-4).
 */
 
-@theme {
+@theme static {
   /* ---------- Кольори (світла тема, за замовчуванням) ---------- */
   --color-*: initial;
 
@@ -74,7 +74,7 @@
 }
 
 /* Шрифти: змінні --font-onest, --font-dela-gothic, --font-caveat задає next/font (app/fonts.ts). */
-@theme inline {
+@theme static inline {
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif; /* текст і інтерфейс */
   --font-display: var(--font-dela-gothic), ui-sans-serif, system-ui, sans-serif; /* display, heading */
   --font-hand: var(--font-caveat), cursive; /* рукописні підписи */
