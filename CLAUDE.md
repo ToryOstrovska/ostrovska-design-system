@@ -2,11 +2,14 @@
 
 # ostrovska-design-system
 
-## Стек
+## Проєкт і стек
 
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS
+Дизайн-система й сайт-портфоліо Вікторії Островської.
+
+- Next.js 16 (App Router), React 19, TypeScript
+- Tailwind CSS 4: токени в `app/globals.css` (блоки `@theme static`), джерело рішень — [docs/tokens-draft.md](docs/tokens-draft.md)
+- Storybook 10 (`@storybook/nextjs-vite`, addon-a11y, addon-docs), конфіг у `.storybook/`
+- Шрифти через next/font у `app/fonts.ts` (latin + cyrillic)
 
 ## Робота з Git
 
@@ -14,34 +17,90 @@
 - Нових гілок не створюй, поки я прямо не попрошу.
 - Пуш у `main` публікує сайт, тому перед кожним пушем питай мене.
 
-## Токени
+## Кольори
 
-Токени записані в `app/globals.css` (блоки `@theme static`: усі змінні завжди потрапляють у CSS, навіть без класів, — сторінка «Токени» в Storybook бере їх через `var()`), джерело рішень — [docs/tokens-draft.md](docs/tokens-draft.md). Стандартні кольори, розміри тексту й радіуси Tailwind скинуті: користуйся лише токенами нижче. Назви — за роллю, не за кольором.
+Стандартна палітра Tailwind скинута (`--color-*: initial`). Назви — за роллю, не за кольором. Класи: `bg-*`, `text-*`, `border-*`.
 
-- **Кольори** (`bg-*`, `text-*`, `border-*`): `canvas`, `surface`, `line` (лише декоративні лінії, не межі полів), `accent`, `ink`, `ink-muted`, `danger`, `action`, `bubble`, `bubble-ink`.
-- **Текст** (`text-*`, з висотою рядка): `caption`, `body`, `lead`, `heading`, `display`, `button` (з жирністю 600), `label` (з жирністю 500 і трекінгом 0.08em), `small`, `hand` (з жирністю 700). Шрифт і регістр токен не задає: `heading`/`display` — разом із `font-display`, `hand` — з `font-hand`, `label` — з `uppercase`.
-- **Шрифти** (`font-*`): `font-sans` — Onest (за замовчуванням), `font-display` — Dela Gothic One, `font-hand` — Caveat Bold. Підключені через next/font у `app/fonts.ts` (latin + cyrillic).
-- **Радіуси** (`rounded-*`): `control` (кнопки, перемикач, чипи), `field` (поля форми), `card` (картки, бульбашка). Поляроїд — без радіуса.
-- **Пропорції** (`aspect-*`): `cover` (16/9), `portrait` (7/8); стандартні теж доступні.
-- **Відступи**: окремих токенів немає, лише кроки 8, 12, 16, 24, 32 px — у Tailwind `2`, `3`, `4`, `6`, `8` (наприклад `p-4`, `gap-6`).
-- **Лише для сторінок, не для компонентів**: `max-w-page` (1296px) і `section` (80px, наприклад `py-section`).
+| Токен | Для чого |
+| --- | --- |
+| `canvas` | фон сторінки (`bg-canvas`); текст на основній кнопці (`text-canvas`) |
+| `surface` | картки, поля, панель меню (`bg-surface`) |
+| `line` | лише декоративні лінії й рамки карток (`border-line`), не межі полів |
+| `accent` | акцентний текст, поточна мова, активний пункт меню, контур фокусу (`outline-accent`) |
+| `ink` | основний текст (`text-ink`), межа при hover |
+| `ink-muted` | приглушений текст, межі полів і другорядних кнопок (`border-ink-muted`) |
+| `danger` | текст помилки й межа поля в стані помилки (`text-danger`, `border-danger`) |
+| `action` | заливка основної кнопки (`bg-action`), текст на ній — `canvas` |
+| `bubble` | фон бульбашки, межа — `ink` |
+| `bubble-ink` | текст у бульбашці |
 
-**Темна тема.** У `@theme` — значення світлої теми. Темна вмикається атрибутом `data-theme="dark"` на `<html>`: селектор `[data-theme="dark"]` у `globals.css` перевизначає ті самі змінні `--color-*`. Класи лишаються ті самі (`bg-canvas`, `text-ink`), змінюються лише значення, тож `dark:` не потрібен. Перемикач теми — у компоненті Navigation; збережений вибір ставить скрипт у `<head>` layout (`app/theme.ts`).
+**Темна тема.** У `@theme` — значення світлої теми. Темна вмикається атрибутом `data-theme="dark"` на `<html>`: селектор `[data-theme="dark"]` у `globals.css` перевизначає ті самі `--color-*`. Класи лишаються ті самі (`bg-canvas`, `text-ink`), `dark:` не потрібен. Перемикач — у Navigation; збережений вибір (або тему системи) ставить скрипт у `<head>` layout (`app/theme.ts`, `themeScript`), `app/ThemeRestore.tsx` повторює це після dev-перемонтування Strict Mode.
+
+Прозорість токена дозволена для станів: `hover:bg-action/85`, `hover:bg-ink/5`.
+
+## Типографіка
+
+Стандартні розміри Tailwind скинуті (`--text-*: initial`). Токен задає розмір і висоту рядка; шрифт і регістр — окремо.
+
+| Клас | Розмір / рядок | Разом із |
+| --- | --- | --- |
+| `text-caption` | 12 / 16 | — |
+| `text-body` | 16 / 24 | — |
+| `text-lead` | 20 / 30 | — |
+| `text-heading` | 28 / 36 | `font-display` |
+| `text-display` | 48 / 60 | `font-display` |
+| `text-button` | 16 / 20, жирність 600 | — |
+| `text-label` | 14 / 20, жирність 500, трекінг 0.08em | `uppercase` |
+| `text-small` | 14 / 20 | — |
+| `text-hand` | 24 / 28, жирність 700 | `font-hand` |
+
+Шрифти: `font-sans` — Onest (за замовчуванням), `font-display` — Dela Gothic One, `font-hand` — Caveat Bold.
+
+## Відступи, радіуси й пропорції
+
+- **Відступи:** окремих токенів немає, лише кроки 8, 12, 16, 24, 32 px — у класах `2`, `3`, `4`, `6`, `8` (`p-4`, `gap-6`, `px-8`).
+- **Розкладка сторінки** (лише на сторінках, не в компонентах): `max-w-page` (1296px), `section` (80px: `py-section`, `gap-section`).
+- **Радіуси — лише три** (`--radius-*: initial`): `rounded-control` (999px: кнопки, перемикач, чипи), `rounded-field` (12px: поля форми, бургер), `rounded-card` (24px: картки, бульбашка). Поляроїд — без радіуса.
+- **Пропорції:** `aspect-cover` (16/9, обкладинка кейсу), `aspect-portrait` (7/8, фото в поляроїді); стандартні (`aspect-square`, `aspect-video`) теж доступні.
 
 ## Компоненти
 
-Кожен компонент лежить у `components/<Назва>/` разом з історією (`.stories.tsx`) і документацією (`.mdx`). Повний опис — на сторінці Docs у Storybook.
+Кожен компонент лежить у `components/<Назва>/`: `<Назва>.tsx`, історія `.stories.tsx` (Storybook: Components → <Назва>) і документація `.mdx`.
 
-- **Button** — [components/Button/Button.tsx](components/Button/Button.tsx), Storybook: Components → Button. Варіанти `primary` (заливка `action`, текст `canvas`) і `secondary` (фон `canvas`, межа `ink-muted`, текст `ink`); розміри `md` і `lg`; кути `rounded-control`. Hover: `bg-action/85` і `bg-ink/5` + межа `ink`. Фокус: контур `accent` 2 px з відступом 2 px. Вимкнена — через `aria-disabled` (не `disabled`), лишається у фокусі; пояснення `disabledHint` під кнопкою звʼязане через `aria-describedby`. Для переходу — проп `href`: тоді рендериться посилання `next/link` з тими самими стилями й станами (вимкнене посилання — `<a>` без `href`, `role="link"`, `aria-disabled`); без `href` — `<button>`.
-- **FormField** (поле форми) — [components/FormField/FormField.tsx](components/FormField/FormField.tsx), Storybook: Components → FormField. Однорядкове текстове поле; підпис (`text-small font-medium`) завжди над полем, справжній `<label for>`. Фон `surface`, межа 2 px `ink-muted` (не `line`), кути `rounded-field`, текст `text-body`. Hover: межа `ink`. Фокус: контур `accent` 2 px з відступом 2 px. Помилка (`error` + `errorMessage`): межа `danger`, під полем іконка й текст `danger`; `aria-invalid="true"`, `aria-describedby` на текст помилки, оголошення через `aria-live="polite"`. Disabled — атрибут `disabled`: фон `canvas`, пунктирна межа й текст `ink-muted`.
-- **WorkCard** (картка роботи) — [components/WorkCard/WorkCard.tsx](components/WorkCard/WorkCard.tsx), Storybook: Components → WorkCard. `<article>`: обкладинка (`aspect-cover`, `next/image` з `fill`, обовʼязковий `coverAlt`), назва (`text-heading font-display`, `h3` або `h2` через `headingLevel`) і опис (`text-body text-ink-muted`, `line-clamp-2`). Фон `surface`, рамка 1 px `line`, кути `rounded-card` (і в обкладинки), відступи `p-6`, `gap-6`, `gap-4`. Одне посилання — на назві, його `::after` розтягнутий на всю картку. Hover: рамка `ink-muted`, назва підкреслена. Фокус: контур `accent` 2 px з відступом 2 px навколо картки. Картинку обкладинки імпортуй з теки `assets` (не з `public`).
-- **Navigation** (шапка з головним меню) — [components/Navigation/Navigation.tsx](components/Navigation/Navigation.tsx), Storybook: Components → Navigation. `<header>`: логотип (`assets/logo-fox.svg` через `<svg><use href="…#logo">`; плита `fill="currentColor"` від `text-ink` на обгортці, тож у темній темі кремова; + імʼя `font-hand`, `text-lead` / `lg:text-hand`) — посилання на головну з `aria-label="Вікторія Островська — на головну"`; `<nav aria-label="Головне меню">` з пунктами Кейси, Про мене, Контакти (поки якорі `#cases`, `#about`, `#contacts`), перемикачем мови UA / EN / DE і перемикачем теми. Пропси: `current` (активний пункт), `language`, `onLanguageChange`. Пункт: `text-body font-semibold text-ink`; hover — підкреслення; активний — `text-accent` + підкреслення, `aria-current="page"`; фокус — контур `accent` 2 px з відступом 2 px. Мова: поточна `text-small font-semibold text-accent` з `aria-current="true"`, інші `text-small text-ink-muted`, зона натискання від 24×24. Перемикач теми — `button role="switch" aria-checked aria-label="Темна тема"`, лише читає `data-theme` з `<html>` і по кліку змінює його та зберігає вибір у `localStorage` (ключ `theme`), без анімації. Збережену тему (без вибору — тему системи) ставить скрипт у `<head>` layout до показу сторінки: `app/theme.ts` (`themeScript`), `app/layout.tsx`; `app/ThemeRestore.tsx` повторює це після dev-перемонтування Strict Mode. До `lg` меню згортається в бургер 44×44 (`aria-expanded`, `aria-controls`, межа `ink-muted`, `rounded-field`); відкрита панель `surface` лягає поверх контенту (`absolute`), пункти по 48 px; закривається Escape, кліком поза нею або вибором пункту, фокус повертається на бургер.
+- **Button** — [components/Button/Button.tsx](components/Button/Button.tsx). Варіанти `primary` (`bg-action text-canvas`) і `secondary` (`bg-canvas border-ink-muted text-ink`); розміри `md` (`px-6 py-3`) і `lg` (`px-8 py-4`); `rounded-control`, межа 2 px.
+  Стани: hover — `bg-action/85` / `bg-ink/5` + `border-ink`; focus — `outline-2 outline-offset-2 outline-accent`; disabled — `aria-disabled` (не `disabled`), лишається у фокусі, пунктирна межа `ink-muted`, текст `ink-muted`; пояснення `disabledHint` під кнопкою через `aria-describedby`.
+  З `href` рендериться `next/link` з тими самими стилями; вимкнене посилання — `<a>` без `href`, `role="link"`, `aria-disabled`.
+- **FormField** — [components/FormField/FormField.tsx](components/FormField/FormField.tsx). Однорядкове поле; підпис `text-small font-medium` над полем, справжній `<label for>`. `bg-surface`, межа 2 px `ink-muted` (не `line`), `rounded-field`, `text-body`.
+  Стани: hover — `border-ink`; focus — контур `accent` 2 px з відступом 2 px; помилка (`error` + `errorMessage`) — `border-danger`, під полем іконка й текст `danger`, `aria-invalid="true"`, `aria-describedby`, `aria-live="polite"`; disabled — атрибут `disabled`, `bg-canvas`, пунктирна межа й текст `ink-muted`.
+- **WorkCard** — [components/WorkCard/WorkCard.tsx](components/WorkCard/WorkCard.tsx). `<article>`: обкладинка (`aspect-cover`, `next/image` з `fill`, обовʼязковий `coverAlt`), назва (`text-heading font-display`, `h3` або `h2` через `headingLevel`), опис (`text-body text-ink-muted line-clamp-2`). `bg-surface`, рамка 1 px `line`, `rounded-card`, `p-6`, `gap-6`, `gap-4`. Одне посилання на назві, його `::after` на всю картку.
+  Стани: hover — `border-ink-muted`, назва підкреслена; focus — контур `accent` 2 px з відступом 2 px навколо картки.
+- **Navigation** — [components/Navigation/Navigation.tsx](components/Navigation/Navigation.tsx). `<header>`: логотип (`assets/logo-fox.svg` через `<svg><use href="…#logo">`, плита `fill="currentColor"` від `text-ink`; імʼя `font-hand`, `text-lead` / `lg:text-hand`) — посилання на головну з `aria-label="Вікторія Островська — на головну"`; `<nav aria-label="Головне меню">`: Кейси, Про мене, Контакти (`#cases`, `#about`, `#contacts`), мова UA / EN / DE, перемикач теми. Пропси: `current`, `language`, `onLanguageChange`.
+  Пункт: `text-body font-semibold text-ink`; hover — підкреслення; активний — `text-accent` + підкреслення, `aria-current="page"`; focus — контур `accent`. Мова: поточна `text-small font-semibold text-accent` з `aria-current="true"`, інші `text-small text-ink-muted`, зона від 24×24. Тема — `button role="switch" aria-checked aria-label="Темна тема"`, змінює `data-theme` і `localStorage` (ключ `theme`), без анімації.
+  До `lg` — бургер 44×44 (`aria-expanded`, `aria-controls`, межа `ink-muted`, `rounded-field`); панель `surface` поверх контенту (`absolute`), пункти по 48 px; закривається Escape, кліком поза нею або вибором пункту, фокус повертається на бургер.
 
 ## Правила
 
+- **Тільки токени.** Кольори, розміри тексту, радіуси й пропорції беруться лише з `@theme`. Класів, яких там немає (`text-white`, `bg-black`, `text-gray-500`, `rounded-lg`, `text-xl`), не використовуй.
+- **Відступи в компонентах** — тільки кроки 8, 12, 16, 24, 32 px (числа `2`, `3`, `4`, `6`, `8` у класах). Токени розкладки (`max-w-page`, `py-section`) — тільки на сторінках.
+- **Без довільних значень** у квадратних дужках: `p-[13px]`, `h-[150px]`, `text-[#...]` заборонені.
+- **Нових кольорів не додавай.** Потрібен новий — спитай мене й спершу онови `docs/tokens-draft.md`.
 - **Кольори ілюстрацій маскота не токенізуються.** Лисичка в SVG (`assets/logo-fox.svg` тощо) має власні кольори пікселів; токени — лише для інтерфейсу (плита логотипа — `currentColor`).
+- **Готові компоненти** (Button, FormField, WorkCard, Navigation) використовуй замість нових. Посилання у вигляді кнопки — `Button` з `href`.
+- **Стани.** Кожен інтерактивний елемент має default, hover, focus (`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`) і disabled; поле форми — ще й помилку.
+- **Вимкнена кнопка** — через `aria-disabled` з поясненням (`disabledHint`), не атрибутом `disabled`.
 - **Іконки — лише два розміри:** `size-4` (16 px) або `size-5` (20 px). Колір — `currentColor` від тексту.
+- **Картинки** лежать у `assets/` і імпортуються (`import cover from "@/assets/…"`), не з `public/`.
+- **Темна тема** — лише через `data-theme`; `dark:` не використовуй.
+- **Storybook.** Після змін у компоненті онови його історію (`.stories.tsx`) і документацію (`.mdx`).
+
+### Доступність (WCAG 2.2 AA)
+
+- Зона натискання — не менше 24×24 px (бургер — 44×44).
+- Анімації й переходи поважають `prefers-reduced-motion`: для руху додавай `motion-reduce:transition-none` / `motion-reduce:animate-none`.
+- Фокус завжди видимий (контур `accent`); підписи полів — справжні `<label>`; помилки звʼязані через `aria-describedby`.
 
 ## Посилання
 
 - План сайту: [docs/plan.md](docs/plan.md)
+- Рішення щодо токенів: [docs/tokens-draft.md](docs/tokens-draft.md)
+- Storybook: `npm run storybook` → http://localhost:6006 (Docs кожного компонента, сторінка «Токени»); збірка — `npm run build-storybook`
